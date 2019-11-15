@@ -1,0 +1,9 @@
+extends default
+
+block content
+  div.course
+    each course in courses
+      br
+      h1.course-name #{course.name}
+      a(href=`/courses?id=${course.id}`) View Course
+      br
