@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'SJSU Class Scheduler',
+    title: 'SJSU Swap Class',
     courses: courses.classes,
   });
 });
