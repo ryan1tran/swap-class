@@ -1,0 +1,6 @@
+var myCourses = [];
+
+var addCourses = function(item) {
+  myCourses.push(item);
+  console.log(item + "course added")
+}
