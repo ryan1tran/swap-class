@@ -7,3 +7,19 @@ block content
       h1.course-name #{course.name}
       a(href=`/courses?id=${course.id}`) View Course
       br
+      button(type='button', id=course.name, onClick='addCourse()') Add Course
+      button(type='button', id=course.name, onClick='dropCourse()') Drop Course
+      button(type='button', id=course.name, onClick='swapCourse()') Swap
+      br
+
+  script.
+    var classes = []
+    function addCourse() {
+      alert(id)
+    }
+    function dropCourse() {
+      alert('Dropped Course')
+    }
+    function swapCourse() {
+      alert('Swapped the courses')
+    }
