@@ -46,9 +46,17 @@ public class SwapClass
 		int availableSeats;
 		boolean enrolled;
 		
-		ClassData()
+		ClassData(String className, int section, int availableSeats)
 		{
-			
+			this.className = className;
+			this.section = section;
+			this.availableSeats = availableSeats;
+
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		System.out.println("Hello, World!");
 	}
 }
