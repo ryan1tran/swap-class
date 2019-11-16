@@ -11,8 +11,9 @@ block content
       button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
       button(type='button', id=course.name, onClick='swapCourse(this.id)') Swap
       br
-  div.course
-    <p id="myCourses">My Courses </p>
+  div.my-courses
+    h2 My Courses
+    <p id="myCourses">No enrolled courses</p>
 
 
   script.
@@ -23,15 +24,25 @@ block content
       if (index < 0) {
         classes.push(clicked_id)
       }
-      document.getElementById("myCourses").innerHTML = classes;
+      var courses = ""
+      for (i = 0; i < classes.length; i++) {
+        courses = courses + "<br>" + classes[i]
+      }
+      document.getElementById("myCourses").innerHTML = courses
     }
+
     function dropCourse(clicked_id) {
       var index = classes.indexOf(clicked_id)
       if (index > -1) {
         classes.splice(index, 1)
       }
-      document.getElementById("myCourses").innerHTML = classes;
+      var courses = ""
+      for (i = 0; i < classes.length; i++) {
+        courses = courses + "<br>" + classes[i]
+      }
+      document.getElementById("myCourses").innerHTML = courses
     }
+    
     function swapCourse(clicked_id) {
       document.getElementById("myCourses").innerHTML = "This is great";
     }
