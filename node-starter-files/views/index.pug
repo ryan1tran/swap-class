@@ -1,0 +1,57 @@
+extends default
+
+block content
+  div.course
+    h1 Courses Available:
+    each course in courses
+      br
+      h2.course-name #{course.name}
+      a(href=`/courses?id=${course.id}`) View Course
+      br
+      button(type='button', id=course.name, onClick='addCourse(this.id)') Add Course
+      button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
+      button(type='button', id=course.name, onClick='swapCourse(this.id)') Swap
+      br
+  div.course
+    h1 My Courses
+    <p id="myCourses">No enrolled courses</p>
+
+
+  script.
+    var classes = []
+
+    function addCourse(clicked_id) {
+      var index = classes.indexOf(clicked_id)
+      if (index < 0) {
+        classes.push(clicked_id)
+      }
+      var courses = ""
+      for (i = 0; i < classes.length; i++) {
+        courses = courses + "<br>" + classes[i]
+      }
+      document.getElementById("myCourses").innerHTML = courses
+    }
+
+    function dropCourse(clicked_id) {
+      var index = classes.indexOf(clicked_id)
+      if (index > -1) {
+        classes.splice(index, 1)
+      }
+      var courses = ""
+      for (i = 0; i < classes.length; i++) {
+        courses = courses + "<br>" + classes[i]
+      }
+      document.getElementById("myCourses").innerHTML = courses
+    }
+
+    function swapCourse(clicked_id) {
+      var result = prompt("Swap with what?")
+      var index = classes.indexOf(result)
+      if (index > -1) {
+        classes.splice(index, 1)
+        classes.push(clicked_id)
+        document.getElementById("myCourses").innerHTML = courses
+      } else {
+        document.getElementById("myCourses").innerHTML = courses + "You don't have that class."
+      }
+    }
