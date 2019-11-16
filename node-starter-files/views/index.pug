@@ -9,6 +9,7 @@ block content
       a(href=`/courses?id=${course.id}`) View Course
       br
       button(type='button', id=course.name, onClick='addCourse(this.id)') Add Course
+      br
       button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
       br
       button(type='button', id=course.name, onClick='swapHelper(this.id)') Swap this
@@ -51,17 +52,26 @@ block content
     }
 
     function swapHelper(clicked_id) {
-      alert(classes.indexOf(clicked_id))
+    // selected class is in the courses
       if (classes.indexOf(clicked_id) > -1) {
         var toSwap = prompt("What class do you want to switch with? (Type in the title exactly the same)")
-        dropCourse(clicked_id)
-        addCourse(toSwap)
+        if (classes.indexOf(toSwap) != null && classes.indexOf(toSwap) < 0) {
+          dropCourse(clicked_id)
+          addCourse(toSwap)
+        }
+        else {
+          alert('You are already enrolled in both')
+        }
       }
+    // selected class is not in the courses
       else {
         var toSwap = prompt("What class do you want to switch with? (Type in the title exactly the same)")
-        dropCourse(toSwap)
-        addCourse(clicked_id)
+        if (classes.indexOf(toSwap) != null && classes.indexOf(toSwap) > -1) {
+          dropCourse(toSwap)
+          addCourse(clicked_id)
+        }
+        else {
+          alert('You are enrolled in neither selected classes')
+        }
       }
-
-
     }

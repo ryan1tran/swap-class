@@ -65,8 +65,11 @@ body {
 /* Index
    ========================================================================== */
 .course {
-  margin: 50px;
+  float: right;
   width: 300px;
+  padding: 0.5em;
+  margin: 1em;
+  margin-right: 200px;
 }
 
 .my-courses {
