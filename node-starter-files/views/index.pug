@@ -2,17 +2,18 @@ extends default
 
 block content
   div.course
+    h1 Courses Available:
     each course in courses
       br
-      h1.course-name #{course.name}
+      h2.course-name #{course.name}
       a(href=`/courses?id=${course.id}`) View Course
       br
       button(type='button', id=course.name, onClick='addCourse(this.id)') Add Course
       button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
       button(type='button', id=course.name, onClick='swapCourse(this.id)') Swap
       br
-  div.my-courses
-    h2 My Courses
+  div.course
+    h1 My Courses
     <p id="myCourses">No enrolled courses</p>
 
 
@@ -42,7 +43,15 @@ block content
       }
       document.getElementById("myCourses").innerHTML = courses
     }
-    
+
     function swapCourse(clicked_id) {
-      document.getElementById("myCourses").innerHTML = "This is great";
+      var result = prompt("Swap with what?")
+      var index = classes.indexOf(result)
+      if (index > -1) {
+        classes.splice(index, 1)
+        classes.push(clicked_id)
+        document.getElementById("myCourses").innerHTML = courses
+      } else {
+        document.getElementById("myCourses").innerHTML = courses + "You don't have that class."
+      }
     }

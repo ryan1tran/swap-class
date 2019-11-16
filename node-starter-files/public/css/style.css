@@ -70,6 +70,8 @@ body {
 }
 
 .my-courses {
+  margin-right: 50px;
+  width: 30%;
   text-align: right;
 }
 
