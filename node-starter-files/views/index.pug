@@ -9,6 +9,7 @@ block content
       a(href=`/courses?id=${course.id}`) View Course
       br
       button(type='button', id=course.name, onClick='addCourse(this.id)') Add Course
+      br
       button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
       br
       button(type='button', id=course.name, onClick='swapHelper(this.id)') Swap this
