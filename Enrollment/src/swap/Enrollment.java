@@ -74,7 +74,10 @@ public class Enrollment
 		
 		for(ClassData cd : myClasses)
 			if(cd.className.equals(className) && cd.section != section)
+			{
 				System.out.println("Cannot be enrolled in two sections of " + toAdd.className + ".");
+				return;
+			}
 		
 		if(myClasses.contains(toAdd))
 		{
@@ -209,6 +212,7 @@ public class Enrollment
 			
 			System.out.println();
 			int input = scan.nextInt();
+			System.out.println("--------------------------------------------------------------------------");
 			System.out.println();
 			
 			switch(input)
@@ -220,11 +224,13 @@ public class Enrollment
 					{
 						System.out.println("Adding: Choose an option: ");
 						System.out.println("1. Print class options");
-						System.out.println("2. Add class (exact name and section required)");
-						System.out.println("3. Back");
+						System.out.println("2. Print current enrolled classes");
+						System.out.println("3. Add class (exact name and section required)");
+						System.out.println("4. Back");
 						
 						System.out.println();
 						int addInput = scan.nextInt();
+						System.out.println("--------------------------------------------------------------------------");
 						System.out.println();
 						
 						switch(addInput)
@@ -234,12 +240,16 @@ public class Enrollment
 								System.out.println();
 								break;
 							case 2:
+								e.printSchedule();
+								System.out.println();
+								break;
+							case 3:
 								System.out.println("Please enter the exact course name and section number to add: ");
 								scan.nextLine();
 								e.add(scan.nextLine());
 								System.out.println();
 								break;
-							case 3:
+							case 4:
 								doneOne = true;
 								break;
 						}
@@ -258,6 +268,7 @@ public class Enrollment
 						
 						System.out.println();
 						int dropInput = scan.nextInt();
+						System.out.println("--------------------------------------------------------------------------");
 						System.out.println();
 						
 						switch(dropInput)
@@ -293,6 +304,7 @@ public class Enrollment
 						
 						System.out.println();
 						int swapInput = scan.nextInt();
+						System.out.println("--------------------------------------------------------------------------");
 						System.out.println();
 						
 						switch(swapInput)
@@ -306,8 +318,8 @@ public class Enrollment
 								System.out.println();
 								break;
 							case 3:
-								System.out.println("Please input the exact course name and section number of the class you are currently enrolled in and press enter."
-										+ "Then input the exact course name and section number of the class you would like to swap to and press enter: ");
+								System.out.println("Please input the exact course name and section number of the class you are currently enrolled in and press enter.");
+								System.out.println("Then input the exact course name and section number of the class you would like to swap to and press enter: ");
 								scan.nextLine();
 								e.swap(scan.nextLine(), scan.nextLine());
 								System.out.println();
