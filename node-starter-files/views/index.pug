@@ -10,7 +10,8 @@ block content
       br
       button(type='button', id=course.name, onClick='addCourse(this.id)') Add Course
       button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
-      button(type='button', id=course.name, onClick='swapCourse(this.id)') Swap
+      br
+      button(type='button', id=course.name, onClick='swapCourse()') Swap this
       br
   div.course
     h1 My Courses
@@ -45,13 +46,21 @@ block content
     }
 
     function swapCourse(clicked_id) {
-      var result = prompt("Swap with what?")
-      var index = classes.indexOf(result)
+    // if clicked is in courses, then next click is on a course they aren't in
+    // if clicked is not in courses, then next click on a course they are in
+
+      var index = classes.indexOf(clicked_id)
       if (index > -1) {
-        classes.splice(index, 1)
-        classes.push(clicked_id)
-        document.getElementById("myCourses").innerHTML = courses
+        var toSwap = scanf()
+        dropCourse(toSwap)
       } else {
-        document.getElementById("myCourses").innerHTML = courses + "You don't have that class."
+        var toSwap = prompt("What class do you want to switch with? (You don't have the selected class)")
+        if (classes.indexOf(toSwap) > -1) {
+          classes.splice(index, 1)
+          classes.push(clicked_id)
+          document.getElementById("myCourses").innerHTML = courses
+        } else {
+          document.getElementById("myCourses").innerHTML = courses + "You don't have that class."
+        }
       }
     }
