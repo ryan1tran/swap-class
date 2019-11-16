@@ -35,14 +35,7 @@ public class Enrollment
 	
 	public ClassData findEnrolledClass(String className, int section)
 	{
-		ClassData found = findEnrolledClass(className, section, myClasses);
-		
-		if(found == null)
-		{
-			System.out.println("Class does not exist.");
-			return null;
-		}
-		return found;
+		return findEnrolledClass(className, section, myClasses);
 	}
 	
 	private ClassData findEnrolledClass(String className, int section, List<ClassData> myClasses)
@@ -55,14 +48,7 @@ public class Enrollment
 	
 	public ClassData findClass(String className, int section)
 	{
-		ClassData found = findClass(className, section, classOptions);
-		
-		if(found == null)
-		{
-			System.out.println("Class does not exist.");
-			return null;
-		}
-		return found;
+		return findClass(className, section, classOptions);
 	}
 	
 	private ClassData findClass(String className, int section, List<ClassData> myClasses)
@@ -79,6 +65,12 @@ public class Enrollment
 		int section = Integer.parseInt(name.substring(name.indexOf('-') + 1));
 		
 		ClassData toAdd = findClass(className, section);
+		
+		if(toAdd == null)
+		{
+			System.out.println(name + " is not an existing course.");
+			return;
+		}
 		
 		for(ClassData cd : myClasses)
 			if(cd.className.equals(className) && cd.section != section)
@@ -101,10 +93,22 @@ public class Enrollment
 	
 	public void drop(String name)
 	{
+		if(myClasses.isEmpty())
+		{
+			System.out.println("You are not enrolled in any classes.");
+			return;
+		}
+		
 		String className = name.substring(0, name.indexOf('-'));
 		int section = Integer.parseInt(name.substring(name.indexOf('-') + 1));
 		
 		ClassData toDrop = findEnrolledClass(className, section);
+		
+		if(toDrop == null)
+		{
+			System.out.println(name + "is not a class in your current schedule.");
+			return;
+		}
 		
 		if(toDrop.enrolled == true)
 		{
@@ -126,7 +130,19 @@ public class Enrollment
 		int swapSection = Integer.parseInt(swapName.substring(swapName.indexOf('-') + 1));
 		
 		ClassData original = findEnrolledClass(originalClass, originalSection);
-		ClassData toSwap = findEnrolledClass(swapClass, swapSection);
+		ClassData toSwap = findClass(swapClass, swapSection);
+		
+		if(original == null)
+		{
+			System.out.println("The class you are looking to swap out of does not exist.");
+			return;
+		}
+		
+		if(toSwap == null)
+		{
+			System.out.println("The class you are looking to swap into does not exist.");
+			return;
+		}
 		
 		if(toSwap.availableSeats > 0)
 		{
@@ -135,9 +151,9 @@ public class Enrollment
 			myClasses.remove(original);
 			toSwap.enrolled = true;
 			toSwap.availableSeats--;
-			myClasses.remove(toSwap);
+			myClasses.add(toSwap);
 			
-			System.out.println("Successfully enrolled in " + toSwap.className + "-" + toSwap.section + "!");
+			System.out.println("Successfully swapped from " + original.className + "-" + original.section + " to " + toSwap.className + "-" + toSwap.section + "!");
 		}else{
 			System.out.println(toSwap.className + "-" + toSwap.section + " is full.");
 		}
@@ -154,7 +170,7 @@ public class Enrollment
 	{
 		System.out.println("List of Courses Available: ");
 		for(ClassData cd : classOptions)
-			System.out.println(cd.className + "-" + cd.section);
+			System.out.println(cd.className + "-" + cd.section + ": " + cd.availableSeats + " available seats open.");
 	}
 	
 	static class ClassData
@@ -178,10 +194,6 @@ public class Enrollment
 	public static void main(String[] args) throws FileNotFoundException, IOException
 	{
 		Enrollment e = new Enrollment();
-		
-		e.add("BIOL30-1");
-		
-		e.printSchedule();
 		
 		Scanner scan = new Scanner(System.in);
 		
@@ -223,8 +235,8 @@ public class Enrollment
 								break;
 							case 2:
 								System.out.println("Please enter the exact course name and section number to add: ");
-								String addClass = scan.nextLine();
-								e.add(addClass);
+								scan.nextLine();
+								e.add(scan.nextLine());
 								System.out.println();
 								break;
 							case 3:
@@ -253,8 +265,10 @@ public class Enrollment
 							case 1:
 								e.printSchedule();
 								System.out.println();
+								break;
 							case 2:
 								System.out.println("Please enter the exact course name and section number to drop: ");
+								scan.nextLine();
 								e.drop(scan.nextLine());
 								System.out.println();
 								break;
@@ -292,7 +306,9 @@ public class Enrollment
 								System.out.println();
 								break;
 							case 3:
-								System.out.println("Please enter the exact course name and section number  of the class you are currently enrolled in and the exact course name and section number of the class you would like to enroll in: ");
+								System.out.println("Please input the exact course name and section number of the class you are currently enrolled in and press enter."
+										+ "Then input the exact course name and section number of the class you would like to swap to and press enter: ");
+								scan.nextLine();
 								e.swap(scan.nextLine(), scan.nextLine());
 								System.out.println();
 								break;
