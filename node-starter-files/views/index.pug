@@ -1,0 +1,67 @@
+extends default
+
+block content
+  div.course
+    h1 Courses Available:
+    each course in courses
+      br
+      h2.course-name #{course.name}
+      a(href=`/courses?id=${course.id}`) View Course
+      br
+      button(type='button', id=course.name, onClick='addCourse(this.id)') Add Course
+      button(type='button', id=course.name, onClick='dropCourse(this.id)') Drop Course
+      br
+      button(type='button', id=course.name, onClick='swapHelper(this.id)') Swap this
+      br
+  div.course
+    h1 My Courses
+    <p id="myCourses">No enrolled courses</p>
+
+
+  script.
+    var classes = []
+
+    function addCourse(clicked_id) {
+      var index = classes.indexOf(clicked_id)
+      if (index < 0) {
+        classes.push(clicked_id)
+      }
+      var courses = ""
+      for (i = 0; i < classes.length; i++) {
+        courses = courses + "<br>" + classes[i]
+      }
+      document.getElementById("myCourses").innerHTML = courses
+    }
+
+    function dropCourse(clicked_id) {
+      var index = classes.indexOf(clicked_id)
+      if (index > -1) {
+        classes.splice(index, 1)
+      }
+      var courses = ""
+      for (i = 0; i < classes.length; i++) {
+        courses = courses + "<br>" + classes[i]
+      }
+      if (classes.length == 0) {
+        document.getElementById("myCourses").innerHTML = "No enrolled courses"
+      }
+      else {
+        document.getElementById("myCourses").innerHTML = courses
+      }
+    }
+
+    function swapHelper(clicked_id) {
+      alert(classes.indexOf(clicked_id))
+      if (classes.indexOf(clicked_id) > -1) {
+        var toSwap = prompt("What class do you want to switch with? (Type in the title exactly the same)")
+        dropCourse(clicked_id)
+        addCourse(toSwap)
+      }
+      else {
+        var toSwap = prompt("What class do you want to switch with? (Type in the title exactly the same)")
+        dropCourse(toSwap)
+        addCourse(clicked_id)
+      }
+
+
+    }
