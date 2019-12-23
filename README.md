@@ -3,6 +3,6 @@ http://overhaul.herokuapp.com/
 
 SJSU Google Hackathon November 15, 2019
 
-Team VRSS
+Team VSRS
 
-Creators: Vinh Nguyen, Ryan Tran, Sunny Mistry, Shana Nguyen
+Creators: Vinh Nguyen, Sunny Mistry, Ryan Tran, Shana Nguyen
